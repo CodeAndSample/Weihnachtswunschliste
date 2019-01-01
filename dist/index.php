@@ -5,7 +5,7 @@ echo <<<EOT
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de">
 <head>
-  <meta charset="utf-8">
+<meta charset="utf-8"> 
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <title>Weihnachtswunschliste</title>
   <meta name="description" content="Weihnachtswunschliste kann bis zu drei Wünsche und eine Adresse entgegennehmen.">
@@ -68,14 +68,7 @@ echo <<<EOT
 </html>
 
 EOT;
-/**
- * Erstellt Textfelder
- *
- * Erstellt Textfelder für ein Formular.
- *
- * @param string Text  der Text der dem Benutzer angezeigt werden soll
- * @param string Name  der Name des Textfeldes
- */
+
 
 
 function schreibeErstesUndZweitesFormular()
@@ -118,12 +111,24 @@ function schreibeEndErgebnisse()
 
 ;
 
-
+/**
+ * Erstellt Textfelder für ein Formular.
+ *
+ * @param string Text  der Text der dem Benutzer angezeigt werden soll
+ * @param string Name  der Name des Textfeldes
+ */
 function schreibeTextfeld($Text, $Name)
 {
   echo "$Text: <input type=\"text\" name=\"$Name\" /><br />\r\n";
+
+
 }
 
+
+/**
+ * Erstellt Inputs für ein Formular.
+ *
+ */
 function schreibeInputController()
 {
   echo <<<EOT
@@ -137,22 +142,31 @@ EOT;
 
 
 
-
+/**
+ * Prüft und schreibt PLZ-Textfelder für ein Formular
+ *
+ * @param string Text  der Text der dem Benutzer angezeigt werden soll oder der Input der vorgenommen wurde
+ * @param string Name  der Name des Textfeldes
+ */
 function schreibePLZFehlerTextfeld($Text, $Name)
 {
   $Value = $_POST[$Name];
   if (passForSonderzeichen($Name)) {
-
     global $fehlerWegenSonderzeichen;
     $fehlerWegenSonderzeichen = true;
-    echo "<div class=\"red\">" . $Text . ": " . "<input type=\"text\" name=\"$Name\" value=\"" . htmlspecialchars($Value) . "\" /><br />\r\n<p>Das ist keine korrekte PLZ!</p></div><br />\r\n";
+    echo "<div class=\"red\">" . $Text . ": " . "<input type=\"text\" name=\"$Name\" value=\"" . htmlspecialchars($Value) . "\" /><br />\r\n<p>Das ist keine korrekte Eingabe! Bitte keine Sonderzeichen benutzen!</p></div><br />\r\n";
   } else {
-    echo "<div class=\"red\">" . $Text . ": " . "<input  type=\"text\" name=\"$Name\" value=\"" . htmlspecialchars($Value) . "\" /><br />\r\n<p>Das ist keine korrekte PLZ!</p></div><br />\r\n";
+    echo "<div class=\"red\">" . $Text . ": " . "<input  type=\"text\" name=\"$Name\" value=\"" . htmlspecialchars($Value) . "\" /><br />\r\n<p>Das ist keine korrekte Eingabe! Eine korrekte Eingabe sieht wie folgt aus: 12345 Berlin</p></div><br />\r\n";
   }
 }
 
 
-
+/**
+ * Prüft und erstellt Textfelder (alles außer Wunsch) für ein Formular
+ *
+ * @param string Text  der Text der dem Benutzer angezeigt werden soll oder der Input der vorgenommen wurde
+ * @param string Name  der Name des Textfeldes
+ */
 function schreibeAusgefuelltesTextfeld($Text, $Name)
 {
   $Value = $_POST[$Name];
@@ -166,7 +180,7 @@ function schreibeAusgefuelltesTextfeld($Text, $Name)
 
 }
 
-// ausgabe der aller korrekten Angaben
+// Ausgabe aller korrekten Angaben
 function schreibeFinalesTextfeld($Text, $Name)
 {
 
